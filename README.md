@@ -33,7 +33,7 @@ curl -X GET https://localhost:9443/client-identity/todos \
     --cert ${CERTS_DIR}/client.crt --key ${CERTS_DIR}/client.key --insecure
 ```
 
-### Blocked Client Request
+#### Blocked Client Request
 
 The mTLS authentication will get established but the request will fail at SAN/CN validation. 
 Generate Client certs with the CN name that must not match with `service.client.allowed-list`
