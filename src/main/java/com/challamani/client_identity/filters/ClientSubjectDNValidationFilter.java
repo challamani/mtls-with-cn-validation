@@ -2,6 +2,7 @@ package com.challamani.client_identity.filters;
 
 import jakarta.servlet.*;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
@@ -65,7 +66,8 @@ public class ClientSubjectDNValidationFilter implements Filter {
         if (isClientSanOrCnMatched) {
             filterChain.doFilter(servletRequest, servletResponse);
         }else{
-            throw new RuntimeException("Client CN/SAN is not in allowed list.");
+            HttpServletResponse httpServletResponse = (HttpServletResponse) servletResponse;
+            httpServletResponse.sendError(HttpServletResponse.SC_FORBIDDEN, "Client request is forbidden");
         }
     }
 
